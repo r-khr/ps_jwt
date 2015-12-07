@@ -8,7 +8,7 @@
  * Service in the psJwtApp.
  */
 angular.module('psJwtApp')
-  .service('alert', function alert($rootScope) {
+  .service('alert', function alert($rootScope, $timeout) {
     return function(type, title, message, timeout){
       $rootScope.alert = {
         hasBeenShown: true,
