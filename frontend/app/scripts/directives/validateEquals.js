@@ -1,11 +1,5 @@
 'use strict';
 
-/**
- * @ngdoc directive
- * @name psJwtApp.directive:sameAs
- * @description
- * # sameAs
- */
 angular.module('psJwtApp')
   .directive('validateEquals', function () {
     return {

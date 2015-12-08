@@ -3,20 +3,28 @@
 angular.module('psJwtApp').factory('authToken', function ($window) {
   var storage = $window.localStorage;
   var cachedToken;
+  var userToken = 'userToken';
 
-  return {
+  var authToken = {
     setToken: function (token) {
       cachedToken = token;
-      storage.setItem('userToken', token);
+      storage.setItem(userToken, token);
+      authToken.isAuthenticated = true;
     },
     getToken: function(){
       if(!cachedToken)
-          cachedToken = storage.getItem('userToken');
+          cachedToken = storage.getItem(userToken);
       return cachedToken;
     },
     isAuthenticated: function(){
-      return !!this.getToken();
-
+      return !!authToken.getToken();
+    },
+    removeToken: function(){
+      cachedToken = null;
+      storage.removeItem(userToken);
     }
-  };
+  }
+  
+  return authToken;
+  
 });

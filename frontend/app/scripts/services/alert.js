@@ -1,14 +1,8 @@
 'use strict';
 
-/**
- * @ngdoc service
- * @name psJwtApp.alert
- * @description
- * # alert
- * Service in the psJwtApp.
- */
 angular.module('psJwtApp')
   .service('alert', function alert($rootScope, $timeout) {
+  var alertTimeout;
     return function(type, title, message, timeout){
       $rootScope.alert = {
         hasBeenShown: true,
