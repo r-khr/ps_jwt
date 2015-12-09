@@ -9,8 +9,7 @@ var UserSchema = new mongoose.Schema({
 UserSchema.methods.toJSON = function(){
 	var user = this.toObject();
 	delete user.password;
-
-	return  user;
+	return user;
 }
 
 UserSchema.methods.comparePasswords = function(password, callback){

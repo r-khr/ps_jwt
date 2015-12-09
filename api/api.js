@@ -22,7 +22,7 @@ app.post('/register', function(req, res){
 	var newUser = new User({
 		email: user.email,
 		password: user.password
-	})
+	});
 
 	newUser.save(function(err){
 		createSendToken(newUser, res);
@@ -40,13 +40,13 @@ app.post('/login', function(req, res){
 		if (err) throw err;
 
 		if(!user)
-			res.status(401).send({message: 'Wrong email/password'});
+			return res.status(401).send({message: 'Wrong email/password'});
 
 		user.comparePasswords(req.user.password, function(err, isMatch){
 			if(err) throw err;
 
 			if(!isMatch)
-				res.status(401).send({message: 'Wrong email/password'});
+				return res.status(401).send({message: 'Wrong email/password'});
 			
 			createSendToken(user, res);
 		});
