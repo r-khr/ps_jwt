@@ -6,7 +6,7 @@ angular.module('psJwtApp')
 
 		auth.login($scope.email, $scope.password)
 			.success(function(res){
-				alert('success', 'Welcome', 'Thanks for coming back ' + res.user.email + "!");
+				alert('success', 'Welcome', 'Thanks for coming back ' + res.user.email + '!');
 			})
 			.error(function(err){
 				alert('warning', 'Something went wrong :( ', err.message);

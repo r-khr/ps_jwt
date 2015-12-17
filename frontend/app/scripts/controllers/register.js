@@ -5,7 +5,7 @@ angular.module('psJwtApp')
   $scope.submit = function(){
     auth.register($scope.email, $scope.password)
       .success(function(res){
-        alert('success', 'Account Created!', ' Welcome, ' + res.user.email + "!");
+        alert('success', 'Account Created!', ' Welcome, ' + res.user.email + '!');
         authToken.setToken(res.token);
       })
       .error(function(err){
