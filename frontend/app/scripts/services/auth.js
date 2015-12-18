@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('psJwtApp').service('auth', function ($http, authToken, API_URL, $state) {
+angular.module('psJwtApp').service('auth', function ($http, authToken, API_URL, $state, $window) {
 
 	function authSuccessful(res){
 		authToken.setToken(res.token);
@@ -21,4 +21,10 @@ angular.module('psJwtApp').service('auth', function ($http, authToken, API_URL, 
 		}).success(authSuccessful);
 	}
 	
+	this.googleAuth = function(){
+		$window.open(url, '', options);
+	}
+
+
+
 });
