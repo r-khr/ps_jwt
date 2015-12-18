@@ -33,8 +33,9 @@ angular.module('psJwtApp').service('auth', function ($http, authToken, API_URL, 
 		var options = "width=500, height=500, left=" + ($window.outerWidth - 500) / 2 + ", top=" + ($window.outerHeight - 500 ) / 2.5;
 
 		$window.open(url, '', options);
+		$window.focus();
+
+		$window
 	}
-
-
 
 });

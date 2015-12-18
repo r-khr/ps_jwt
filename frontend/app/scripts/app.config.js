@@ -44,5 +44,11 @@
 .run(function($window){
   var params = $window.location.search.substring(1);
 
-  console.log(params);
+  if(params && $window.opener && $window.opener.location.origin === $window.location.origin){
+    var pair = params.split('=');
+    var code = decodeURIComponent(pair[1]);
+
+    // Authorization window is sending information back to the main window
+    $window.opener.postMessage(code, $window.location.origin);
+  }
 });
