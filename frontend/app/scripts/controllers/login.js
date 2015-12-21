@@ -1,23 +1,22 @@
 'use strict';
 
 angular.module('psJwtApp')
-.controller('LoginCtrl', function ($scope, alert, auth) {
+.controller('LoginCtrl', function ($scope, alert, auth, $auth) {
 	$scope.submit = function() {
-
 		auth.login($scope.email, $scope.password)
-			.success(function(res){
+			.success( function (res) {
 				alert('success', 'Welcome, ', ' Thanks for coming back ' + res.user.email + '!');
 			})
 			.error(handleError);
 	}
 
-	$scope.google = function() {
-		auth.googleAuth().then(function(res){
-			alert('success', 'Welcome, ', ' Thanks for coming back ' + res.user.displayName + '!');
+	$scope.authenticate = function (provider) {
+		$auth.authenticate(provider).then( function (res) {
+			alert('success', 'Welcome, ', ' Thanks for coming back ' + res.data.user.displayName + '!');
 		}, handleError);
 	}
 
-	function handleError(err) {
+	function handleError (err) {
 		alert('warning', 'Something went wrong :( ', err.message);
 	}
 

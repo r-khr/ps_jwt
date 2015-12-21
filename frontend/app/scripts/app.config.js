@@ -1,7 +1,7 @@
 'use strict';
 
  angular.module('psJwtApp').config(function($urlRouterProvider 
-  ,$stateProvider, $httpProvider){
+  ,$stateProvider, $httpProvider, $authProvider, API_URL){
 
   $urlRouterProvider.otherwise('/');
 
@@ -33,6 +33,11 @@
   .state('logout', {
     url: '/logout',
     controller: 'LogoutCtrl'
+  });
+
+  $authProvider.google({
+    clientId: '927479755973-h32bfmj92eqrbl3f4f5e4565n0d4at5a.apps.googleusercontent.com',
+    url: API_URL + 'auth/google'
   });
   
   $httpProvider.interceptors.push('authInterceptor');
