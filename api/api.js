@@ -7,6 +7,7 @@ var passport = require('passport');
 var request = require('request');
 var LocalStrategy = require('passport-local').Strategy;
 var moment = require('moment');
+var facebookAuth = require('./services/facebookAuth.js');
 
 var app = express();
 
@@ -86,6 +87,8 @@ app.post('/register', passport.authenticate('local-register'), function(req, res
 app.post('/login', passport.authenticate('local-login'), function(req, res){
 	createSendToken(req.user, res);
 })
+
+app.post('/auth/facebook', facebookAuth);
 
 function createSendToken(user, res){
 	var payload = {

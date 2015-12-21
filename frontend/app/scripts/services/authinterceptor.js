@@ -5,8 +5,9 @@ angular.module('psJwtApp').factory('authInterceptor', function (authToken) {
       request: function(config){
         var token = authToken.getToken();
 
-        if(token)
+        if(token){
           config.headers.Authorization = 'Bearer ' + token;
+        }
 
         return config;
 
