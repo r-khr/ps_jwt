@@ -1,8 +1,8 @@
 var request = require('request');
 var qs = require('querystring');
-var createSendToken = require('./services/jwt.js');
+var createSendToken = require('./jwt.js');
 var config = require('./config.js');
-var User = require('./models/User.js');
+var User = require('../models/User.js');
 
 module.exports = function(req, res){
 	var accessTokenUrl = 'https://graph.facebook.com/oauth/access_token';
@@ -21,8 +21,14 @@ module.exports = function(req, res){
 	}, function (err, response, accessToken) {
 		accessToken = qs.parse(accessToken);
 
-		request.get({url: graphApiUrl, qs: accessToken, json: true}, function (err, response, profile) {
-			User.findOne({facebookId: profile.id}, function(err, existingUser){
+		request.get({
+			url: graphApiUrl, 
+			qs: accessToken, 
+			json: true
+		}, function (err, response, profile) {
+			User.findOne({ 
+				facebookId: profile.id
+			}, function (err, existingUser) {
 				if(existingUser){
 					return createSendToken(existingUser, res);
 				}

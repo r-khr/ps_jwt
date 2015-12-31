@@ -9,7 +9,7 @@ angular.module('psJwtApp')
     })
       .then( function (res) {
         alert('success', 'Account Created!', ' Welcome, ' + res.data.user.email + '!');
-        authToken.setToken(res.token);
+        $auth.setToken(res.token);
       })
       .catch( function (err) {
         alert('warning', 'Something went wrong :( ', err.message);

@@ -42,6 +42,11 @@
     clientId: '927479755973-h32bfmj92eqrbl3f4f5e4565n0d4at5a.apps.googleusercontent.com',
     url: API_URL + 'auth/google'
   });
+
+  $authProvider.facebook({
+    clientId: '165438377144811',
+    url: API_URL + 'auth/facebook'
+  });
   
   $httpProvider.interceptors.push('authInterceptor');
 

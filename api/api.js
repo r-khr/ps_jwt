@@ -1,12 +1,12 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var User = require('./models/User.js');
 var passport = require('passport');
 var request = require('request');
-var LocalStrategy = require('passport-local').Strategy;
 var createSendToken = require('./services/jwt.js');
+var User = require('./models/User.js');
 var facebookAuth = require('./services/facebookAuth.js');
+var localStrategy = require('./services/localStrategy.js');
 
 var app = express();
 
@@ -25,59 +25,8 @@ app.use(function(req, res, next){
 	next();
 });
 
-var strategyOptions = {usernameField: 'email'};
-
-var loginStrategy = new LocalStrategy(strategyOptions, 
-	function(email, password, done){
-		var searchUser = {
-			email: email
-		};
-
-		User.findOne(searchUser, function(err, user){
-			if (err) return done(err);
-
-			if(!user) return done(null, false, {
-				message: 'Wrong email/password'
-			});
-
-			user.comparePasswords(password, function(err, isMatch){
-				if (err) return done(err);
-
-				if(!isMatch) return done(null, false, { 
-					message: 'Wrong email/password'
-				});
-				
-				return done(null, user);
-			});
-		})
-});
-
-var registerStrategy = new LocalStrategy(strategyOptions, 
-	function(email, password, done){
-		var searchUser = {
-			email: email
-		};
-
-		User.findOne(searchUser, function(err, user){
-			if (err) return done(err);
-
-			if(user) return done(null, false, {
-				message: 'email already exists'
-			});
-			var newUser = new User({
-				email: email,
-				password: password
-			});
-
-			newUser.save(function(err){
-				done(null, newUser);
-			})
-
-		});
-});
-
-passport.use('local-register', registerStrategy);
-passport.use('local-login', loginStrategy);
+passport.use('local-register', localStrategy.register);
+passport.use('local-login', localStrategy.login);
 
 app.post('/register', passport.authenticate('local-register'), function(req, res){
 	createSendToken(req.user, res);
